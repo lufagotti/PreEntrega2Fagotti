@@ -10,6 +10,8 @@ productos.push (new Producto ("crema hidratante", "2200"));
 productos.push (new Producto ("agua micelar", "1000"));
 productos.push (new Producto ("contorno de ojos", "800"))
 
+let carrito = []
+
 let solicitarProducto = prompt ("¿Desea comprar un producto?")
 
 while ((solicitarProducto != "si") && (solicitarProducto != "no")){
@@ -46,8 +48,22 @@ while (solicitarProducto != "no"){
         break;
     }
     let unidades = parseInt (prompt ("¿Cuantas unidades quiere?"))
+    
+    carrito.push ({producto, unidades, precio})
+    console.log (carrito)
   }else{
     alert ("No tenemos ese producto")
   }
+  solicitarProducto = prompt ("¿Desea seguir comprando?")
+  
+  while (solicitarProducto == "no"){
+    alert ("¡Gracias por tu compra!")
+    carrito.forEach((carritoFinal) => {
+      alert("Producto:"+ " " + carritoFinal.producto + " , " + "Unidades:"+ " " + carritoFinal.unidades + " , " + "Total a pagar:"+ " $ " + carritoFinal.unidades * carritoFinal.precio)
+    })
+  break
+  }
 }
 
+const total = carrito.reduce ((acc, el) => acc + el.precio * el.unidades, 0)
+alert ("El total a pagar es:"+ " $ " + total)

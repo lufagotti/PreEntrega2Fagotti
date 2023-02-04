@@ -1,4 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Work Sans', sans-serif;
+}
+
 /* header */
 .navbar-collapse {
 justify-content: flex-end;
+}
+.img-fluid{
+    width: 2500px;
+}
+.btn-primary{
+    background-color: #9dcacc;
+    border-block-color: #9dcacc;
+    --bs-btn-border-color: #9dcacc;
+    --bs-btn-hover-bg: #789a9c;
+    --bs-btn-hover-border-color: #789a9c;
+}
+
+/* titulo */
+.titulo1{
+    position: absolute;
+    top: 37%;
+    left: 33%;
+    font-size: 69px;
+    background-color: beige;
+    opacity: 0.8;
+} 
+.subtitulo{
+    position: absolute;
+    top: 52%;
+    left: 22%;
+    background-color: beige;
+    opacity: 0.8;
+}
+.titulo2{
+    text-align: center;
+    background-color: #9dcacc;
+    font-size: 44px;
+    margin-top: 60px;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Productos section*/
+
+input{
+    margin-top: 40px;
+    margin-left: 79px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#contenedor-productos{
+    justify-items: center;
+}
+.buscador{
+    display: flex;
+    align-items: center;
+}
+.selector{
+    display: flex;
+}
+.card-img-top{
+    height: 285px;
+}
+.producto{
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+/* Mediaqueries */
+@media only screen and (max-width:1200px){
+    #contenedor-productos{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0.5vw;
+    }
+}
+@media only screen and (min-width:1200px){
+    #contenedor-productos{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media only screen and (max-width:600px){
+    #contenedor-productos{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

@@ -72,6 +72,19 @@ input{
     padding-top: 40px;
     padding-bottom: 20px;
 }
+/* Carrito */
+.modal-contenedor{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.img-carrito{
+    width: 200px;
+    padding: 20px;
+}
+.precioTotal{
+    padding-right: 38px;
+}
 /* Mediaqueries */
 @media only screen and (max-width:1200px){
     #contenedor-productos{

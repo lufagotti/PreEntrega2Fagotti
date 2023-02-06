@@ -22,19 +22,17 @@ justify-content: flex-end;
 
 /* titulo */
 .titulo1{
-    position: absolute;
-    top: 37%;
-    left: 33%;
     font-size: 69px;
     background-color: beige;
     opacity: 0.8;
+    margin-right: 200px;
+    margin-left: 200px;
 } 
 .subtitulo{
-    position: absolute;
-    top: 52%;
-    left: 22%;
     background-color: beige;
     opacity: 0.8;
+    margin-right: 200px;
+    margin-left: 200px;
 }
 .titulo2{
     text-align: center;
@@ -45,6 +43,17 @@ justify-content: flex-end;
     margin-right: 50px;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+.banner{
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url(imagenes/rutina-de-skincare-mobile.jpg);
+}
+.banner-container{
+    text-align: center;
+    padding: 20% 0;
 }
 
 /* Productos section*/

@@ -1,57 +1,99 @@
-const contenedorProductos = document.getElementById ('contenedor-productos')
-const carritoContenedor = document.querySelector ('#carrito-contenedor')
-const vaciarCarrito = document.querySelector ('#vaciar-carrito')
-const precioTotal = document.querySelector ('#precio-total')
+const productos = [
+  { id :1, nombre:"Protector solar", precio: 3500, img: './imagenes/producto1.jpg', cantidad: 1},
+  { id: 2, nombre:"Protector solar", precio: 1800, img: './imagenes/producto2.jpg', cantidad: 1},
+  { id: 3, nombre:"Protector solar", precio: 2850, img: './imagenes/producto3.jpg', cantidad: 1},
+  { id: 4, nombre: "Crema hidratante", precio: 2200, img: './imagenes/producto4.jpg', cantidad: 1},
+  { id: 5, nombre: "Crema hidratante", precio: 2400, img: './imagenes/producto5.jpg', cantidad: 1},
+  { id: 6, nombre: "Crema hidratante", precio: 1450, img: './imagenes/producto6.jpg', cantidad: 1},
+  { id: 7, nombre: "Agua micelar", precio: 1570, img: './imagenes/producto7.jpeg', cantidad: 1},
+  { id: 8, nombre: "Agua micelar", precio: 1100, img: './imagenes/producto8.jpg', cantidad: 1},
+  { id: 9, nombre: "Agua micelar", precio: 1790, img: './imagenes/producto9.jpg', cantidad: 1},
+  { id: 10, nombre: "Serum", precio: 4200, img: './imagenes/producto10.jpg', cantidad: 1},
+  { id: 11, nombre: "Serum", precio: 3300, img: './imagenes/producto11.jpeg', cantidad: 1},
+  { id: 12, nombre: "Serum", precio: 2900, img: './imagenes/producto12.jpg', cantidad: 1},
+];
 
 let carrito = [];
+
+const contenedor = document.querySelector ('#contenedor')
+const carritoContenedor = document.querySelector ('#carritoContenedor')
+const vaciarCarrito = document.querySelector ('#vaciarCarrito')
+const precioTotal = document.querySelector ('#precioTotal')
+const procesarCompra = document.querySelector ('#procesarCompra')
+const activarFuncion = document.querySelector ('#activarFuncion')
+
+if(activarFuncion){
+activarFuncion.addEventListener('click',  procesarPedido)
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   carrito = JSON.parse(localStorage.getItem('carrito')) || []
   mostrarCarrito()
+
+  document.querySelector('#activarFuncion').click(procesarPedido)
 })
 
-productos.forEach((producto)=> {
-  let div = document.createElement ("div");
-  div.classList.add ('producto')
-  div.innerHTML = `
-  <div class="card" style="width: 18rem;">
-    <img src=${producto.img} class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">${producto.nombre}</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <p class="preciongr"> $ ${producto.precio}</p>
-      <button onclick="agregarProducto(${producto.id})"  type="button" class="btn btn-primary">Agregar al carrito</button>
+productos.forEach((prod)=> {
+  const {id, nombre, precio, img} = prod
+  if(contenedor){
+  contenedor.innerHTML += `
+    <div class="card" style="width: 18rem;">
+      <img src=${img} class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">${nombre}</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="preciongr"> $ ${precio}</p>
+        <button onclick="agregarProducto(${id})"  type="button" class="btn btn-primary">Agregar al carrito</button>
+      </div>
     </div>
-  </div>
-  `;
-  contenedorProductos.append(div)
+    `
+  }
 });
 
+if(procesarCompra){
+procesarCompra.addEventListener('click', () => {
+  if (carrito.length === 0){
+      Swal.fire({
+      icon: 'error',
+      title: 'Tu carrito esta vacio',
+      text: 'Compra algo para continuar con la compra',
+      confirmButtonText: 'Aceptar'
+    })
+  }else{
+    location.href = "compra2.html"
+    procesarPedido ()
+  }
+})
+}
+
+if(vaciarCarrito){
 vaciarCarrito.addEventListener('click', () => {
   carrito.length = []
   mostrarCarrito()
 })
+}
 
 function agregarProducto(id){
   const existe = carrito.some(prod => prod.id === id)
-  if(existe){
-    const prod = carrito.map (prod => {
-      if(prod.id === id){
+  if (existe){
+    const prod = carrito.map (prod =>{
+      if (prod.id === id){
         prod.cantidad++
       }
     })
   }else{
-    const item = productos.find((prod)=> prod.id === id)
+    const item = productos.find ((prod) => prod.id === id)
     carrito.push(item)
   }
   mostrarCarrito()
 }
 
 const mostrarCarrito = () => {
-  const modalBody = document.querySelector('.modal .modal-body')
+  const modalBody = document.querySelector ('.modal .modal-body')
+  if(modalBody){
   modalBody.innerHTML = ''
-  carrito.forEach((prod) => {
-    const {id,nombre,precio,img,cantidad} = prod
+  carrito.forEach ((prod) => {
+    const {id, nombre, img, cantidad, precio} = prod
     modalBody.innerHTML +=`
     <div class= "modal-contenedor">
       <div>
@@ -63,23 +105,26 @@ const mostrarCarrito = () => {
         <p>Cantidad: ${cantidad}</p>
         <button onclick="eliminarProducto(${id})" class="btn btn-danger">Eliminar</button>
       </div>
-    <div></div>
+      <div></div>
     </div>
     `
   })
-  if(carrito.length === 0){
+  }
+  if (carrito.length === 0){
     modalBody.innerHTML = `
     <h5 class= "text-center">Tu carrito esta vacio</h5>
     `
   }
+  if(carritoContenedor){
   carritoContenedor.textContent = carrito.length
-
-  precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0 )
-
+  }
+  if(precioTotal){
+  precioTotal.textContent = carrito.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0)
+  }
   guardarStorage()
 }
 
-function eliminarProducto(id){
+function eliminarProducto (id){
   const productoId = id
   carrito = carrito.filter((producto) => producto.id !== productoId)
   mostrarCarrito()
@@ -88,3 +133,24 @@ function eliminarProducto(id){
 function guardarStorage(){
   localStorage.setItem("carrito", JSON.stringify(carrito))
 }
+
+function procesarPedido(){
+  carrito.forEach((prod) => {
+    const listaCompra = document.querySelector ('#lista-compra tbody')
+    const {id, nombre, precio, cantidad, img} = prod
+    if (listaCompra) {
+      const row = document.createElement("tr");
+      row.innerHTML += `
+              <td>
+              <img class="img-fluid img-carrito" src="${img}"/>
+              </td>
+              <td>${nombre}</td>
+            <td>${precio}</td>
+            <td>${cantidad}</td>
+            <td>${precio * cantidad}</td>
+            `;
+      listaCompra.appendChild(row);
+    }
+  });
+}
+

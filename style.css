@@ -4,7 +4,9 @@
     box-sizing: border-box;
     font-family: 'Work Sans', sans-serif;
 }
-
+.boton{
+    opacity: 0;
+}
 /* header */
 .navbar-collapse {
 justify-content: flex-end;
@@ -21,6 +23,7 @@ justify-content: flex-end;
 }
 
 /* titulo */
+
 .titulo1{
     font-size: 69px;
     background-color: beige;
@@ -55,33 +58,24 @@ justify-content: flex-end;
     text-align: center;
     padding: 20% 0;
 }
+#titulo4{
+    background-color: #9dcacc;
+    font-size: 44px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
 
 /* Productos section*/
-
-input{
-    margin-top: 40px;
-    margin-left: 79px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
 #contenedor-productos{
     justify-items: center;
-}
-.buscador{
-    display: flex;
-    align-items: center;
-}
-.selector{
-    display: flex;
 }
 .card-img-top{
     height: 285px;
 }
-.producto{
-    padding-top: 40px;
-    padding-bottom: 20px;
-}
+
+
 /* Carrito */
+
 .modal-contenedor{
     display: flex;
     align-items: center;
@@ -96,20 +90,20 @@ input{
 }
 /* Mediaqueries */
 @media only screen and (max-width:1200px){
-    #contenedor-productos{
+    #contenedor{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         padding: 0.5vw;
     }
 }
 @media only screen and (min-width:1200px){
-    #contenedor-productos{
+    #contenedor{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
     }
 }
 @media only screen and (max-width:600px){
-    #contenedor-productos{
+    #contenedor{
         display: grid;
         grid-template-columns: repeat(1, 1fr);
     }

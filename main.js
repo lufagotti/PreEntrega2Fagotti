@@ -92,6 +92,13 @@ function agregarProducto(id){
     const item = productos.find ((prod) => prod.id === id)
     carrito.push(item)
   }
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Se agrego al carrito',
+    showConfirmButton: false,
+    timer: 1000
+  })
   mostrarCarrito()
 }
 
@@ -152,9 +159,9 @@ function procesarPedido(){
               <img class="img-fluid img-carrito" src="${img}"/>
               </td>
               <td>${nombre}</td>
-            <td>${precio}</td>
+            <td>$${precio}</td>
             <td>${cantidad}</td>
-            <td>${precio * cantidad}</td>
+            <td>$${precio * cantidad}</td>
             `;
       listaCompra.appendChild(row);
     }
@@ -188,31 +195,31 @@ function enviarCompra(e){
     emailjs.sendForm(serviceID, templateID, this)
         .then(() => {
           btn.value = 'Finalizar compra';
-          alert('Enviado!');
+          // alert('Enviado!');
         }, (err) => {
           btn.value = 'Finalizar compra';
           alert(JSON.stringify(err));
         });
       };
-
-    // probando
-    const spinner = document.querySelector ('#spinner')
-    spinner.classList.add('d-flex')
-    spinner.classList.remove('d-none')
-
-    setTimeout(() => {
-      spinner.classList.remove('d-flex')
-      spinner.classList.add('d-none')
-      formulario.reset()
-    }, 3000)
-
-    const alertExito = document.createElement('p')
-    alertExito.classList.add('alert', 'd-block', 'text-center', 'col-md-12', 'mt-2', 'alert-success')
-    alertExito.textContent = "Compra realizada correctamente"
-    formulario.appendChild(alertExito)
-
-    setTimeout(() => {
-      alertExito.remove()
-    }, 3000)
+    if (correo != '' & persona != ''){
+      const spinner = document.querySelector ('#spinner')
+      spinner.classList.add('d-flex')
+      spinner.classList.remove('d-none')
+  
+      setTimeout(() => {
+        spinner.classList.remove('d-flex')
+        spinner.classList.add('d-none')
+        formulario.reset()
+      }, 3000)
+  
+      const alertExito = document.createElement('p')
+      alertExito.classList.add('alert', 'd-block', 'text-center', 'col-md-12', 'mt-2', 'alert-success')
+      alertExito.textContent = "Compra realizada correctamente"
+      formulario.appendChild(alertExito)
+  
+      setTimeout(() => {
+        alertExito.remove()
+      }, 3000)
+    }
     localStorage.clear()
   }
